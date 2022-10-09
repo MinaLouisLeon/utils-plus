@@ -2,18 +2,18 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   budgets: null,
-  didExist: false
+  didBudgetExist: false
 }
 
 const budgetSlice = createSlice({
   name: "budgetSlice",
   initialState,
   reducers: {
-    actionToggleDidExist: (state, action) => {
-      state.didExist = !state.didExist;
+    actionToggleDidBudgetExist: (state, action) => {
+      state.didBudgetExist = !state.didBudgetExist;
     },
   }
 })
 
-export const { actionToggleDidExist } = budgetSlice.actions;
+export const { actionToggleDidBudgetExist } = budgetSlice.actions;
 export default budgetSlice.reducer;

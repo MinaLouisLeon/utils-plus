@@ -3,9 +3,10 @@ import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import budgetSlice from "./slices/budgetSlice";
-
+import listSlice from "./slices/listSlice";
 const reducers = combineReducers({
   budgetSlice: budgetSlice,
+  listSlice: listSlice
 })
 
 const persistConfig = {
