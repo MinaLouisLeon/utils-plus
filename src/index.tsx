@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { store } from "./store";
+import "tachyons";
 import App from "./App";
 let persistor = persistStore(store);
 const container = document.getElementById("root");
