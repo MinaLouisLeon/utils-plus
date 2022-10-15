@@ -41,6 +41,8 @@ const AddBudgetForm = ({ listName, onDismiss }) => {
               <IonInput
                 required
                 type='text'
+                pattern='[(A-Z)|(a-z)|(0-9)|(\s)]+'
+                title="No Special Characters"
                 value={name}
                 onIonChange={(e) => setName(e.detail.value)}
               />

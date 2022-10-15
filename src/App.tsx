@@ -22,7 +22,8 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 
 import MainPage from "./pages/MainPage/MainPage";
-
+import BudgetPage from "./pages/BudgetPage/BudgetPage";
+import BudgetDailyView from "./pages/BudgetPage/BudgetDailyView";
 setupIonicReact();
 
 const App: React.FC = () => (
@@ -31,6 +32,12 @@ const App: React.FC = () => (
    <IonRouterOutlet>
     <Route exact path="/home">
      <MainPage />
+    </Route>
+    <Route exact path="/Budget/:budgetId">
+     <BudgetPage />
+    </Route>
+    <Route exact path="/DailyBudget/:budgetId/:date">
+     <BudgetDailyView />
     </Route>
     <Route exact path="/">
      <Redirect to="/home" />

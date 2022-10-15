@@ -37,6 +37,8 @@ const AddListForm = ({ onDismiss }) => {
               <IonInput
                 required
                 type='text'
+                pattern='[(A-Z)|(a-z)|(0-9)|(\s)]+'
+                title="No Special Characters"
                 value={newListName}
                 onIonChange={(e) => setNewListName(e.detail.value)}
               />

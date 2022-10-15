@@ -1,0 +1,25 @@
+.top-container {
+ position: fixed;
+ top: 4rem;
+ right: 0;
+ left: 0;
+ bottom: 8.5rem;
+ overflow-y: auto;
+}
+.bottom-container {
+ position: fixed;
+ right: 0;
+ left: 0;
+ bottom: 0;
+ height: 8.5rem;
+ border-top-style: solid;
+ border-top-width: thin;
+ border-top-color: #ccc;
+}
+
+.btn-container {
+ display: flex;
+ flex-direction: row;
+ align-content: center;
+ justify-content: space-around;
+}
