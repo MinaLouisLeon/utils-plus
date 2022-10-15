@@ -7,7 +7,6 @@ import AddListForm from '../../components/AddListForm/AddListForm';
 import AddBudgetForm from '../../components/AddBudgetFrom/AddBudgetForm';
 import { actionAddTodoTemp, actionClearDidExist } from '../../slices/listSlice';
 import ListItemsViewComp from '../../components/ListItemsViewComp/ListItemsViewComp';
-import AddTodoForm from '../../components/AddTodoForm/AddTodoForm';
 const MainPage = () => {
   const dispatch = useDispatch(null)
   const didListExist = useSelector(state => state.listSlice.didListExist);
@@ -33,8 +32,6 @@ const MainPage = () => {
         return <AddListForm onDismiss={handleDismissModal} />
       case "budget":
         return <AddBudgetForm onDismiss={handleDismissModal} listName={selectedList} />
-      case "todo":
-        return <AddTodoForm onDismiss={handleDismissModal} listName={selectedList} />
       default:
         return <></>
     }

@@ -5,7 +5,7 @@ import { actionDeleteBudget } from '../../slices/budgetSlice';
 import { useHistory } from 'react-router-dom';
 import { card } from "ionicons/icons";
 import AddTodoFormTemp from '../AddTodoFormTemp/AddTodoFormTemp';
-import { actionCheckTodo } from '../../slices/todoSlice';
+import { actionCheckTodo, actionDeleteTodo } from '../../slices/todoSlice';
 const ListItemsViewComp = ({ listName }) => {
   const dispatch = useDispatch(null);
   const history = useHistory();
@@ -47,7 +47,12 @@ const ListItemsViewComp = ({ listName }) => {
               </IonLabel>
             </IonItem>
             <IonItemOptions>
-              <IonItemOption color="danger">Delete</IonItemOption>
+              <IonItemOption color="danger" onClick={() => {
+                dispatch(actionDeleteTodo({
+                  listName: listName,
+                  todoKey: key
+                }))
+              }}>Delete</IonItemOption>
             </IonItemOptions>
           </IonItemSliding>
         </>

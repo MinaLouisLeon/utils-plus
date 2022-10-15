@@ -42,9 +42,21 @@ const todoSlice = createSlice({
         ...state.todos[`${listName}-${todoIndex}`],
         checked: value
       }
+    },
+    actionDeleteTodo: (state, action) => {
+      //args : todoKey , listName
+      let listName = action.payload.listName;
+      let todoKey = action.payload.todoKey;
+      let todoIndex = todoKey.split('-')[1];
+      let length = Object.keys(state.todos).length;
+      if (length === 1) {
+        state.todos = null;
+      } else {
+        delete state.todos[`${listName}-${todoIndex}`]
+      }
     }
   },
 })
 
-export const { actionAddTodo, actionCheckTodo } = todoSlice.actions;
+export const { actionAddTodo, actionCheckTodo, actionDeleteTodo } = todoSlice.actions;
 export default todoSlice.reducer;

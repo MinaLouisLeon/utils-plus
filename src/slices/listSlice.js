@@ -112,6 +112,17 @@ const listSlice = createSlice({
         ...state.lists[listName][todoKey],
         checked: value
       }
+    },
+    [`todoSlice/actionDeleteTodo`]: (state, action) => {
+      //args : todoKey , listName
+      let listName = action.payload.listName;
+      let todoKey = action.payload.todoKey;
+      let length = Object.keys(state.lists[listName]).length
+      if (length === 1) {
+        state.lists[listName] = null;
+      } else {
+        delete state.lists[listName][todoKey]
+      }
     }
   }
 })

@@ -17,7 +17,7 @@ const AddTodoFormTemp = ({ listName }) => {
     dispatch(actionAddTodoTemp({ value: false }))
   }
   return (
-    <div className='ma1'>
+    <div className='ma2'>
       <form onSubmit={handleSubmit}>
         <IonItem className='shadow-2 br4'>
           <IonLabel>
