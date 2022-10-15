@@ -117,7 +117,6 @@ const budgetSlice = createSlice({
           state.budgets[budgetId].totalBudget = parseFloat(state.budgets[budgetId].totalBudget) - parseFloat(amount);
         }
       } else {
-        // TODO continue daily budget
         if (state.budgets[budgetId].data[date].data === null || state.budgets[budgetId].data[date].data === undefined) {
           state.budgets[budgetId].data[date].data = {
             0: {

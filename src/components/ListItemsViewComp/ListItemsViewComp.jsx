@@ -1,19 +1,22 @@
-import { IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel } from '@ionic/react';
+import { IonCheckbox, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel } from '@ionic/react';
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { actionDeleteBudget } from '../../slices/budgetSlice';
 import { useHistory } from 'react-router-dom';
 import { card } from "ionicons/icons";
+import AddTodoFormTemp from '../AddTodoFormTemp/AddTodoFormTemp';
+import { actionCheckTodo } from '../../slices/todoSlice';
 const ListItemsViewComp = ({ listName }) => {
   const dispatch = useDispatch(null);
   const history = useHistory();
   const listItemsObj = useSelector(state => state.listSlice.lists[listName]);
+  const tempTodo = useSelector(state => state.listSlice.tempTodo);
   const handleItemView = (item, key) => {
     switch (key.split('-')[0]) {
       case "budget":
         return <>
           <IonItemSliding className='br4 shadow-2'>
-            <IonItem lines='none' button onClick={() => history.push(`/Budget/${item.budgetId}`)}>
+            <IonItem lines='none' button disabled={tempTodo} onClick={() => history.push(`/Budget/${item.budgetId}`)}>
               <IonIcon slot='start' icon={card} color="secondary" />
               <IonLabel>
                 {key.split('-')[1]}
@@ -25,6 +28,26 @@ const ListItemsViewComp = ({ listName }) => {
                   budgetId: listItemsObj[key].budgetId
                 }))
               }}>Delete</IonItemOption>
+            </IonItemOptions>
+          </IonItemSliding>
+        </>
+      case "todo":
+        return <>
+          <IonItemSliding className='br4 shadow-2'>
+            <IonItem lines='none'>
+              <IonCheckbox slot='start' disabled={tempTodo} value={item.checked}
+                onIonChange={(e) => dispatch(actionCheckTodo({
+                  listName: listName,
+                  todoKey: key,
+                  value: e.detail.checked
+                }))}
+              />
+              <IonLabel>
+                {item.checked ? <s>{item.data}</s> : <>{item.data}</>}
+              </IonLabel>
+            </IonItem>
+            <IonItemOptions>
+              <IonItemOption color="danger">Delete</IonItemOption>
             </IonItemOptions>
           </IonItemSliding>
         </>
@@ -41,6 +64,7 @@ const ListItemsViewComp = ({ listName }) => {
           </div>
         )
       })}
+      {tempTodo && <AddTodoFormTemp listName={listName} />}
     </div>
   )
 }

@@ -4,7 +4,8 @@ const initialState = {
   didListExist: false,
   lists: {
     "Main List": null
-  }
+  },
+  tempTodo: false,
 }
 
 const listSlice = createSlice({
@@ -26,6 +27,10 @@ const listSlice = createSlice({
         }
       }
     },
+    actionAddTodoTemp: (state, action) => {
+      //args : value
+      state.tempTodo = action.payload.value
+    }
   },
   extraReducers: {
     [`budgetSlice/actionAddBudget`]: (state, action) => {
@@ -55,9 +60,61 @@ const listSlice = createSlice({
       let listName = budgetIdArr[0];
       let budgetName = budgetIdArr[1];
       delete state.lists[listName][`budget-${budgetName}`]
+    },
+    [`todoSlice/actionAddTodo`]: (state, action) => {
+      // args : listName , todoData
+      let listName = action.payload.listName;
+      let todoData = action.payload.todoData;
+      if (state.lists[listName] !== null && state.lists[listName] !== undefined) {
+        let index = null
+        Object.keys(state.lists[listName]).map((key, mapIndex) => {
+          if (key.includes("todo")) {
+            index = mapIndex
+          }
+        })
+        if (index !== null) {
+          let lastTodoKey = Object.keys(state.lists[listName])[index]
+          let lastTodoIndex = parseInt(lastTodoKey.split('-')[1]);
+          state.lists[listName] = {
+            ...state.lists[listName],
+            [`todo-${lastTodoIndex + 1}`]: {
+              checked: false,
+              todoId: `${listName}-${lastTodoIndex + 1}`,
+              data: todoData
+            }
+          }
+        } else {
+          state.lists[listName] = {
+            ...state.lists[listName],
+            [`todo-0`]: {
+              checked: false,
+              todoId: `${listName}-0`,
+              data: todoData
+            }
+          }
+        }
+      } else {
+        state.lists[listName] = {
+          [`todo-0`]: {
+            checked: false,
+            todoId: `${listName}-0`,
+            data: todoData
+          }
+        }
+      }
+    },
+    [`todoSlice/actionCheckTodo`]: (state, action) => {
+      //args : listName , todoKey , value
+      let listName = action.payload.listName;
+      let todoKey = action.payload.todoKey;
+      let value = action.payload.value;
+      state.lists[listName][todoKey] = {
+        ...state.lists[listName][todoKey],
+        checked: value
+      }
     }
   }
 })
 
-export const { actionClearDidExist, actionAddList } = listSlice.actions;
+export const { actionClearDidExist, actionAddList, actionAddTodoTemp } = listSlice.actions;
 export default listSlice.reducer;

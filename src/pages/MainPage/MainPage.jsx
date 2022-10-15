@@ -5,14 +5,15 @@ import { add } from "ionicons/icons";
 import { useSelector, useDispatch } from 'react-redux';
 import AddListForm from '../../components/AddListForm/AddListForm';
 import AddBudgetForm from '../../components/AddBudgetFrom/AddBudgetForm';
-import { actionClearDidExist } from '../../slices/listSlice';
+import { actionAddTodoTemp, actionClearDidExist } from '../../slices/listSlice';
 import ListItemsViewComp from '../../components/ListItemsViewComp/ListItemsViewComp';
 import AddTodoForm from '../../components/AddTodoForm/AddTodoForm';
 const MainPage = () => {
   const dispatch = useDispatch(null)
   const didListExist = useSelector(state => state.listSlice.didListExist);
   const didBudgetExist = useSelector(state => state.budgetSlice.didBudgetExist);
-  const lists = useSelector(state => state.listSlice.lists)
+  const lists = useSelector(state => state.listSlice.lists);
+  const tempTodo = useSelector(state => state.listSlice.tempTodo);
   const [presentActionSheet] = useIonActionSheet();
   const [selectedList, setSelectedList] = useState("Main List")
   const [alertMsg, setAlertMsg] = useState("");
@@ -52,7 +53,7 @@ const MainPage = () => {
           <IonMenuButton slot='start' />
           <IonTitle>Utils Plus</IonTitle>
           <div className='ma1' slot='end'>
-            <IonSelect interface='popover' placeholder={selectedList} onIonChange={(e) => setSelectedList(e.detail.value)}>
+            <IonSelect disabled={tempTodo} interface='popover' placeholder={selectedList} onIonChange={(e) => setSelectedList(e.detail.value)}>
               {Object.keys(lists).map((key) => {
                 return (
                   <IonSelectOption key={key} value={key}>{key}</IonSelectOption>
@@ -65,7 +66,7 @@ const MainPage = () => {
       <IonContent fullscreen id="mainPage">
         <ListItemsViewComp listName={selectedList} />
         <IonFab vertical='bottom' horizontal='end' slot='fixed'>
-          <IonFabButton onClick={() => {
+          <IonFabButton disabled={tempTodo} onClick={() => {
             presentActionSheet({
               mode: "ios",
               buttons: [
@@ -87,6 +88,13 @@ const MainPage = () => {
                       isOpen: true,
                       type: "budget"
                     })
+                  }
+                },
+                {
+                  text: "Add Todo",
+                  handler: () => {
+                    // TODO add handler for adding todo
+                    dispatch(actionAddTodoTemp({ value: true }))
                   }
                 },
                 {
