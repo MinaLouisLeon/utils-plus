@@ -6,7 +6,6 @@ import BudgetViewComp from '../../components/BudgetViewComp/BudgetViewComp';
 import { useParams } from 'react-router';
 const BudgetDailyView = () => {
   const { budgetId, date } = useParams();
-  console.log(budgetId, date)
   return (
     <IonPage>
       <IonHeader>

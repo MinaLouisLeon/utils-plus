@@ -12,7 +12,6 @@ const BudgetViewComp = ({ budgetId, date }) => {
   const [amountName, setAmountName] = useState("");
   const [amountType, setAmountType] = useState("");
   const [popoverState, setPopoverState] = useState({ isOpen: false, e: undefined });
-  console.log(budgetData)
   const handleSubmit = (e) => {
     e.preventDefault();
     let data = {

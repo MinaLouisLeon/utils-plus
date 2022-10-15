@@ -151,14 +151,10 @@ const budgetSlice = createSlice({
       //args : budgetId 
       let budgetId = action.payload.budgetId;
       let lastDayInBudgetString = Object.keys(state.budgets[budgetId].data).pop();
-      console.log("string", lastDayInBudgetString)
       let dayArr = lastDayInBudgetString.split('-');
       let lastDayInBudget = `${dayArr[2]}-${dayArr[1]}-${dayArr[0]}`
-      console.log("arr", lastDayInBudget)
       let today = dayjs().format('YYYY-MM-DD');
-      console.log("today", today)
       let diffInDays = differenceInCalendarDays(parseISO(today), parseISO(lastDayInBudget));
-      console.log(diffInDays);
       if (diffInDays === 1) {
         state.budgets[budgetId].data = {
           ...state.budgets[budgetId].data,
@@ -169,7 +165,6 @@ const budgetSlice = createSlice({
         }
       } else {
         for (let i = 1; i <= diffInDays; i++) {
-          console.log(i)
           state.budgets[budgetId].data = {
             ...state.budgets[budgetId].data,
             [dayjs(lastDayInBudgetString, "DD-MM-YYYY").add(i, 'day').format("DD-MM-YYYY")]: {
