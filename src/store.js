@@ -5,16 +5,18 @@ import { persistReducer } from "redux-persist";
 import budgetSlice from "./slices/budgetSlice";
 import listSlice from "./slices/listSlice";
 import todoSlice from "./slices/todoSlice";
+import noteSlice from "./slices/noteSlice";
 const reducers = combineReducers({
   budgetSlice: budgetSlice,
   listSlice: listSlice,
-  todoSlice: todoSlice
+  todoSlice: todoSlice,
+  noteSlice: noteSlice
 })
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['budgetSlice', 'listSlice', 'todoSlice']
+  whitelist: ['budgetSlice', 'listSlice', 'todoSlice', 'noteSlice']
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers);

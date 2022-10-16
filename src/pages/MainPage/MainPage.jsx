@@ -7,6 +7,7 @@ import AddListForm from '../../components/AddListForm/AddListForm';
 import AddBudgetForm from '../../components/AddBudgetFrom/AddBudgetForm';
 import { actionAddTodoTemp, actionClearDidExist } from '../../slices/listSlice';
 import ListItemsViewComp from '../../components/ListItemsViewComp/ListItemsViewComp';
+import AddNoteForm from '../../components/AddNoteForm/AddNoteForm';
 const MainPage = () => {
   const dispatch = useDispatch(null)
   const didListExist = useSelector(state => state.listSlice.didListExist);
@@ -32,6 +33,8 @@ const MainPage = () => {
         return <AddListForm onDismiss={handleDismissModal} />
       case "budget":
         return <AddBudgetForm onDismiss={handleDismissModal} listName={selectedList} />
+      case "note":
+        return <AddNoteForm onDismiss={handleDismissModal} listName={selectedList} />
       default:
         return <></>
     }
@@ -92,6 +95,15 @@ const MainPage = () => {
                   handler: () => {
                     // TODO add handler for adding todo
                     dispatch(actionAddTodoTemp({ value: true }))
+                  }
+                },
+                {
+                  text: "Add Note",
+                  handler: () => {
+                    setModalState({
+                      isOpen: true,
+                      type: "note"
+                    })
                   }
                 },
                 {

@@ -123,6 +123,46 @@ const listSlice = createSlice({
       } else {
         delete state.lists[listName][todoKey]
       }
+    },
+    [`noteSlice/actionAddNote`]: (state, action) => {
+      //args : listName , value , noteTitle
+      let listName = action.payload.listName;
+      let value = action.payload.value;
+      let noteTitle = action.payload.noteTitle;
+      if (state.lists[listName] === null || state.lists[listName] === undefined) {
+        state.lists[listName] = {
+          [`note-0`]: {
+            data: value,
+            title: noteTitle
+          }
+        }
+      } else {
+        let index = null;
+        Object.keys(state.lists[listName]).map((key, mapIndex) => {
+          if (key.includes("note")) {
+            index = mapIndex
+          }
+        })
+        if (index !== null) {
+          let lastNoteKey = Object.keys(state.lists[listName])[index];
+          let lastNoteIndex = parseInt(lastNoteKey.split('-')[1]);
+          state.lists[listName] = {
+            ...state.lists[listName],
+            [`note-${lastNoteIndex + 1}`]: {
+              title: noteTitle,
+              data: value
+            }
+          }
+        } else {
+          state.lists[listName] = {
+            ...state.lists[listName],
+            [`note-0`]: {
+              data: value,
+              title: noteTitle
+            }
+          }
+        }
+      }
     }
   }
 })
