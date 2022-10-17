@@ -14,7 +14,17 @@ const MainSideMenu = () => {
       </IonHeader>
       <IonContent>
         <IonList>
-          <IonItem lines='full' button onClick={() => history.push("/Budgets")}>
+          {/* <IonItem key="home" lines='full' button onClick={() => history.push("/home")}>
+            <IonLabel>
+              Home
+            </IonLabel>
+          </IonItem> */}
+          <IonItem key="all-lists" lines='full' button onClick={() => history.push("/AllLists")}>
+            <IonLabel>
+              Lists
+            </IonLabel>
+          </IonItem>
+          <IonItem key="all-budgets" lines='full' button onClick={() => history.push("/AllBudgets")}>
             <IonLabel>
               Budgets
             </IonLabel>

@@ -1,6 +1,6 @@
 import { useIonActionSheet, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonMenuButton, IonPage, IonTitle, IonToolbar, IonModal, IonSelect, IonSelectOption, IonAlert } from '@ionic/react'
 import React, { useState } from 'react'
-// import MainSideMenu from '../../components/SideMenus/MainSideMenu'
+import MainSideMenu from '../../components/SideMenus/MainSideMenu'
 import { add } from "ionicons/icons";
 import { useSelector, useDispatch } from 'react-redux';
 import AddListForm from '../../components/AddListForm/AddListForm';
@@ -47,7 +47,7 @@ const MainPage = () => {
         header={alertMsg}
         buttons={['OK']}
       />
-      {/* <MainSideMenu /> */}
+      <MainSideMenu />
       <IonHeader>
         <IonToolbar>
           <IonMenuButton slot='start' />
