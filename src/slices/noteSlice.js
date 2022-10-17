@@ -31,9 +31,31 @@ const noteSlice = createSlice({
           }
         }
       }
+    },
+    actionDeleteNote: (state, action) => {
+      //args : noteKey , listName
+      let noteKey = action.payload.noteKey;
+      let listName = action.payload.listName;
+      let noteIndex = noteKey.split('-')[1];
+      let length = Object.keys(state.notes).length;
+      if (length === 1) {
+        state.notes = null;
+      } else {
+        delete state.notes[`${listName}-${noteIndex}`]
+      }
+    },
+    actionSaveEditNote: (state, action) => {
+      //args : noteId , value , noteTitle,listName
+      let noteId = action.payload.noteId;
+      let value = action.payload.value;
+      let noteTitle = action.payload.noteTitle;
+      state.notes[noteId] = {
+        data: value,
+        title: noteTitle
+      }
     }
   }
 })
 
-export const { actionAddNote } = noteSlice.actions;
+export const { actionAddNote, actionDeleteNote, actionSaveEditNote } = noteSlice.actions;
 export default noteSlice.reducer;

@@ -1,0 +1,19 @@
+.top-container-daily {
+ position: fixed;
+ top: 7vh;
+ bottom: 9vh;
+ left: 0;
+ right: 0;
+ overflow-y: auto;
+}
+
+.bottom-container-daily {
+ position: fixed;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ height: 9vh;
+ border-top-style: solid;
+ border-top-width: thin;
+ border-top-color: #ccc;
+}

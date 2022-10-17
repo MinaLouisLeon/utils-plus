@@ -24,6 +24,7 @@ import "./theme/variables.css";
 import MainPage from "./pages/MainPage/MainPage";
 import BudgetPage from "./pages/BudgetPage/BudgetPage";
 import BudgetDailyView from "./pages/BudgetPage/BudgetDailyView";
+import NotePage from './pages/NotePage/NotePage';
 setupIonicReact();
 
 const App: React.FC = () => (
@@ -38,6 +39,9 @@ const App: React.FC = () => (
     </Route>
     <Route exact path="/DailyBudget/:budgetId/:date">
      <BudgetDailyView />
+    </Route>
+    <Route exact path="/Note/:listName/:noteId">
+      <NotePage />
     </Route>
     <Route exact path="/">
      <Redirect to="/home" />

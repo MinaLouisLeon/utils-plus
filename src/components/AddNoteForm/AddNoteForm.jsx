@@ -3,11 +3,11 @@ import { IonButton, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonList,
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useDispatch } from 'react-redux';
-import { actionAddNote } from '../../slices/noteSlice';
-const AddNoteForm = ({ listName, onDismiss }) => {
+import { actionAddNote, actionSaveEditNote } from '../../slices/noteSlice';
+const AddNoteForm = ({ listName, onDismiss, oldValue, oldTitle, noteId }) => {
   const dispatch = useDispatch(null);
-  const [noteTitle, setNoteTitle] = useState("");
-  const [value, setValue] = useState('');
+  const [noteTitle, setNoteTitle] = useState(oldTitle === undefined ? "" : oldTitle);
+  const [value, setValue] = useState(oldValue === undefined ? "" : oldValue);
   const modules = {
     toolbar: [
       [{ 'header': [1, 2, false] }],
@@ -34,7 +34,17 @@ const AddNoteForm = ({ listName, onDismiss }) => {
       noteTitle: noteTitle,
       listName: listName
     }
-    dispatch(actionAddNote(data))
+    if (oldValue === undefined) {
+      dispatch(actionAddNote(data))
+    } else {
+      //TODO handle Edit
+      dispatch(actionSaveEditNote({
+        noteId: noteId,
+        value: value,
+        noteTitle: noteTitle,
+        listName: listName
+      }))
+    }
     handleDismiss();
   }
   const handleDismiss = () => {
@@ -68,7 +78,9 @@ const AddNoteForm = ({ listName, onDismiss }) => {
             </IonItem>
             <ReactQuill theme="snow" value={value} onChange={setValue} modules={modules} formats={formats} placeholder="Enter Note Data" />
             <div className='ml2 mr2 mt3'>
-              <IonButton className='ma2' color="success" expand="block" type='submit'>Add</IonButton>
+              <IonButton className='ma2' color="success" expand="block" type='submit'>
+                {oldTitle === undefined ? "Add" : "Save"}
+              </IonButton>
               <IonButton className='ma2' color="danger" expand="block" type='button' onClick={handleDismiss}>Cancel</IonButton>
             </div>
           </IonList>

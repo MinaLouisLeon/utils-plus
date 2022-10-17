@@ -132,7 +132,7 @@ const listSlice = createSlice({
       if (state.lists[listName] === null || state.lists[listName] === undefined) {
         state.lists[listName] = {
           [`note-0`]: {
-            data: value,
+            noteId: `${listName}-0`,
             title: noteTitle
           }
         }
@@ -150,18 +150,40 @@ const listSlice = createSlice({
             ...state.lists[listName],
             [`note-${lastNoteIndex + 1}`]: {
               title: noteTitle,
-              data: value
+              noteId: `${listName}-${lastNoteIndex + 1}`
             }
           }
         } else {
           state.lists[listName] = {
             ...state.lists[listName],
             [`note-0`]: {
-              data: value,
+              noteId: `${listName}-0`,
               title: noteTitle
             }
           }
         }
+      }
+    },
+    [`noteSlice/actionDeleteNote`]: (state, action) => {
+      //args : noteKey , listName
+      let noteKey = action.payload.noteKey;
+      let listName = action.payload.listName;
+      let length = Object.keys(state.lists[listName]).length;
+      if (length === 1) {
+        state.lists[listName] = null;
+      } else {
+        delete state.lists[listName][noteKey];
+      }
+    },
+    [`noteSlice/actionSaveEditNote`]: (state, action) => {
+      //args : noteId , value , noteTitle,listName
+      let noteId = action.payload.noteId;
+      let noteTitle = action.payload.noteTitle;
+      let listName = action.payload.listName;
+      let index = noteId.split('-')[1];
+      state.lists[listName][`note-${index}`] = {
+        title: noteTitle,
+        noteId: noteId
       }
     }
   }
